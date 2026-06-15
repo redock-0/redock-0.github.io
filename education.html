@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Education | Micah Dumo</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; color: #333; padding: 40px 20px; line-height: 1.6; }
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; color: #333; padding: 120px 20px 40px; line-height: 1.6; }
         header, main { max-width: 900px; margin: 0 auto; }
-        nav { margin: 25px 0 35px; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; margin: 0; padding: 12px 20px; background-color: #f4f4f9; border-bottom: 1px solid #d8d8e8; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
         nav a { display: inline-block; margin: 6px; padding: 8px 12px; color: #333; text-decoration: none; border: 1px solid #d8d8e8; border-radius: 4px; background: #fff; }
         nav a:hover { background: #eeeeff; }
+        @media (max-width: 600px) { body { padding-top: 190px; } nav { padding: 10px; } nav a { margin: 4px; padding: 7px 9px; } }
         h1, h2, h3 { color: #333; }
         section { background: #fff; border: 1px solid #d8d8e8; border-radius: 6px; margin: 20px 0; padding: 24px; text-align: left; }
         .details { color: #555; }
