@@ -378,4 +378,50 @@ footer {
     .project-visual {
         display: none;
     }
+
+    .home-page {
+        padding: 20px 16px 32px;
+    }
+
+    .home-page header h1 {
+        margin: 0 0 20px;
+        font-size: 1.85rem;
+        line-height: 1.15;
+    }
+
+    .home-page .intro {
+        row-gap: 24px;
+        padding: 28px 20px;
+        font-size: 1rem;
+        line-height: 1.55;
+    }
+
+    .home-page .intro-copy {
+        width: 100%;
+    }
+
+    .home-page .intro-copy h2 {
+        margin-bottom: 16px;
+        font-size: 2rem;
+    }
+
+    .home-page .intro-copy p {
+        margin: 0 0 20px;
+        text-align: left;
+    }
+
+    .home-page .intro-copy p:first-of-type {
+        text-align: center;
+    }
+
+    .home-page .homepage-nav {
+        width: 100%;
+        padding: 8px;
+    }
+
+    .home-page .homepage-nav a {
+        margin: 4px;
+        padding: 8px 11px;
+        font-size: 1rem;
+    }
 }
