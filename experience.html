@@ -9,37 +9,69 @@
 <body>
     <header>
         <h1>Experience</h1>
+        <div class="experience-tabs" role="tablist" aria-label="Experience type">
+            <button class="experience-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="volunteering-panel" id="volunteering-tab">Volunteering</button>
+            <button class="experience-tab" type="button" role="tab" aria-selected="false" aria-controls="work-panel" id="work-tab">Work</button>
+        </div>
         <nav>
             <a href="index.html">Home</a>
             <a href="education.html">Education</a>
             <a href="projects.html">Projects</a>
-            <a href="awards.html">Awards</a>
             <a href="certifications.html">Certifications</a>
-            <a href="experience.html">Experience</a>
+            <a href="experience.html" aria-current="page">Experience</a>
             <a href="activities.html">Activities</a>
             <a href="skills.html">Skills</a>
         </nav>
     </header>
 
     <main>
-        <section>
-            <h2>Coding Games for Kids</h2>
-            <p class="details">YouthCorps | December 2023</p>
-            <ul>
-                <li>Designed and facilitated coding activities for primary school children using CodeSpark.</li>
-                <li>Simplified programming concepts into engaging learning experiences.</li>
-                <li>Developed communication and teaching skills.</li>
-            </ul>
-        </section>
+        <div id="volunteering-panel" role="tabpanel" aria-labelledby="volunteering-tab">
+            <section>
+                <h2>Coding Games for Kids</h2>
+                <p class="details">YouthCorps | December 2023</p>
+                <ul>
+                    <li>Designed and facilitated coding activities for primary school children using CodeSpark.</li>
+                    <li>Simplified programming concepts into engaging learning experiences.</li>
+                    <li>Developed communication and teaching skills.</li>
+                </ul>
+            </section>
 
-        <section>
-            <h2>Tutoring Programme</h2>
-            <p class="details">Tutor, Bethesda CARE Centre (BCARE) | 2025 - Present</p>
-            <ul>
-                <li>Provide academic support to primary school students in Mathematics.</li>
-                <li>Adapt teaching methods to different learning needs and paces.</li>
-            </ul>
-        </section>
+            <section>
+                <h2>Tutoring Programme</h2>
+                <p class="details">Tutor, Bethesda CARE Centre (BCARE) | 2025 - Present</p>
+                <ul>
+                    <li>Provide academic support to primary school students in Mathematics.</li>
+                    <li>Adapt teaching methods to different learning needs and paces.</li>
+                </ul>
+            </section>
+        </div>
+
+        <div id="work-panel" role="tabpanel" aria-labelledby="work-tab" hidden>
+            <section class="empty-experience">
+                <p>No work experience as of now.</p>
+            </section>
+        </div>
     </main>
+
+    <script>
+        const experienceTabs = document.querySelectorAll('.experience-tab');
+        const experiencePanels = document.querySelectorAll('[role="tabpanel"]');
+
+        experienceTabs.forEach((tab) => {
+            tab.addEventListener('click', () => {
+                const selectedPanel = document.getElementById(tab.getAttribute('aria-controls'));
+
+                experienceTabs.forEach((item) => {
+                    const isSelected = item === tab;
+                    item.classList.toggle('is-active', isSelected);
+                    item.setAttribute('aria-selected', isSelected);
+                });
+
+                experiencePanels.forEach((panel) => {
+                    panel.hidden = panel !== selectedPanel;
+                });
+            });
+        });
+    </script>
 </body>
 </html>

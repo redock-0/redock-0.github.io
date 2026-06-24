@@ -11,9 +11,8 @@
         <h1>Education</h1>
         <nav>
             <a href="index.html">Home</a>
-            <a href="education.html">Education</a>
+            <a href="education.html" aria-current="page">Education</a>
             <a href="projects.html">Projects</a>
-            <a href="awards.html">Awards</a>
             <a href="certifications.html">Certifications</a>
             <a href="experience.html">Experience</a>
             <a href="activities.html">Activities</a>
@@ -22,31 +21,73 @@
     </header>
 
     <main>
-        <section>
-            <h2>Singapore Management University</h2>
-            <p><strong>Bachelor of Science in Information Systems</strong></p>
-            <p class="details">August 2025 - April 2029 (Expected)</p>
-            <ul>
-                <li>Cumulative GPA as of Year 1 Semester 2: 3.73/4.00.</li>
-                <li>Relevant coursework: Programming Fundamentals, Data Management, Statistics, Data Analysis and Modelling, and Web Application Development.</li>
-            </ul>
-        </section>
+        <div class="education-timeline">
+            <article class="education-card">
+                <div class="education-card-header">
+                    <div>
+                        <h2>Singapore Management University</h2>
+                        <p class="education-qualification">Bachelor of Science in Information Systems</p>
+                    </div>
+                    <p class="education-date">August 2025 – April 2029 (Expected)</p>
+                </div>
+                <ul class="education-facts">
+                    <li>Cumulative GPA as of Year 1 Semester 2: 3.73/4.00.</li>
+                    <li>
+                        <span class="coursework-label">Relevant coursework</span>
+                        <div class="coursework-tags">
+                            <span>Programming Fundamentals</span>
+                            <span>Data Management</span>
+                            <span>Statistics</span>
+                            <span>Data Analysis and Modelling</span>
+                            <span>Web Application Development</span>
+                        </div>
+                    </li>
+                </ul>
+            </article>
 
-        <section>
-            <h2>St. Andrew's Junior College</h2>
-            <p class="details">January 2023 - December 2024</p>
-            <ul>
-                <li>Achieved 3 distinctions in A Levels.</li>
-            </ul>
-        </section>
+            <article class="education-card">
+                <div class="education-card-header">
+                    <div>
+                        <h2>St. Andrew's Junior College</h2>
+                        <p class="education-qualification">GCE A-Level, Science</p>
+                    </div>
+                    <p class="education-date">2023 – 2024</p>
+                </div>
+                <ul class="education-facts">
+                    <li>Grade: 3 A-Level Distinctions</li>
+                    <li>
+                        <span class="coursework-label">Activities and societies</span>
+                        <ul class="education-activities">
+                            <li>Outdoor Adventure Club (ODAC) <span>2023 – 2024</span></li>
+                            <li>Model United Nations (MUN) <span>2024</span></li>
+                            <li>ChrySAlis — Participant &amp; Facilitator <span>2023, 2024</span></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="coursework-label">Subjects studied</span>
+                        <div class="coursework-tags">
+                            <span>H2 Mathematics</span>
+                            <span>H2 Physics</span>
+                            <span>H2 Economics</span>
+                            <span>H1 Geography</span>
+                            <span>H1 General Paper</span>
+                            <span>H1 Project Work</span>
+                            <span>H1 French</span>
+                        </div>
+                    </li>
+                </ul>
+            </article>
 
-        <section>
-            <h2>Kuo Chuan Presbyterian Secondary School</h2>
-            <p class="details">January 2019 - December 2022</p>
-            <ul>
-                <li>Achieved 6 distinctions in O Levels.</li>
-            </ul>
-        </section>
+            <article class="education-card">
+                <div class="education-card-header">
+                    <h2>Kuo Chuan Presbyterian Secondary School</h2>
+                    <p class="education-date">January 2019 – December 2022</p>
+                </div>
+                <ul class="education-facts">
+                    <li>Achieved 6 distinctions in O Levels.</li>
+                </ul>
+            </article>
+        </div>
     </main>
 </body>
 </html>
