@@ -54,8 +54,27 @@ section {
 }
 
 .intro {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    text-align: left;
     font-size: 1.08rem;
+}
+
+.intro-copy {
+    flex: 1;
+}
+
+.intro-copy h2 {
+    margin-top: 0;
+}
+
+.intro-photo {
+    width: min(38%, 280px);
+    aspect-ratio: 1 / 1;
+    flex: 0 0 auto;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .details {
@@ -84,5 +103,14 @@ footer {
     nav a {
         margin: 4px;
         padding: 7px 9px;
+    }
+
+    .intro {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .intro-photo {
+        width: min(100%, 320px);
     }
 }
