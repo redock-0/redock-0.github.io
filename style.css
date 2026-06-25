@@ -1,8 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
+
+:root {
+    --page-bg: #DAD7CD;
+    --card-bg: #FFFFFF;
+    --sage-light: #A3B18A;
+    --fern: #588157;
+    --hunter: #3A5A40;
+    --forest: #344E41;
+}
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f4f4f9;
-    color: #333;
+    background-color: var(--page-bg);
+    color: var(--forest);
     padding: 120px 20px 40px;
     line-height: 1.6;
 }
@@ -20,30 +31,32 @@ nav {
     z-index: 1000;
     margin: 0;
     padding: 12px 20px;
-    background-color: #f4f4f9;
-    border-bottom: 1px solid #d8d8e8;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    background-color: var(--page-bg);
+    border-bottom: 0;
+    box-shadow: 0 2px 8px rgba(52, 78, 65, 0.12);
 }
 
 nav a {
     display: inline-block;
     margin: 6px;
     padding: 8px 12px;
-    color: #333;
+    color: var(--fern);
+    font-family: 'Lora', serif;
+    font-weight: 600;
     text-decoration: none;
-    border: 1px solid #d8d8e8;
+    border: 0;
     border-radius: 4px;
-    background: #fff;
+    background: var(--card-bg);
 }
 
 nav a:hover {
-    background: #eeeeff;
+    color: var(--forest);
+    background: var(--sage-light);
 }
 
 nav a[aria-current="page"] {
-    color: #fff;
-    background: #5d5a8d;
-    border-color: #5d5a8d;
+    color: var(--card-bg);
+    background: var(--fern);
 }
 
 .home-page .homepage-nav {
@@ -66,8 +79,13 @@ nav a[aria-current="page"] {
 }
 
 .home-page header h1 {
-    margin-top: 0;
+    margin: 0 auto 28px;
+    padding: 22px 28px;
+    color: var(--card-bg);
     text-align: center;
+    background: var(--hunter);
+    border-radius: 8px;
+    box-shadow: 0 10px 24px rgba(52, 78, 65, 0.16);
 }
 
 .experience-tabs {
@@ -79,22 +97,24 @@ nav a[aria-current="page"] {
 
 .experience-tab {
     padding: 9px 18px;
-    color: #333;
-    font: inherit;
+    color: var(--fern);
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
-    background: #fff;
-    border: 1px solid #d8d8e8;
+    background: var(--card-bg);
+    border: 0;
     border-radius: 4px;
 }
 
 .experience-tab:hover {
-    background: #eeeeff;
+    color: var(--forest);
+    background: var(--sage-light);
 }
 
 .experience-tab.is-active {
-    color: #fff;
-    background: #5d5a8d;
-    border-color: #5d5a8d;
+    color: var(--card-bg);
+    background: var(--fern);
 }
 
 .empty-experience {
@@ -102,12 +122,22 @@ nav a[aria-current="page"] {
 }
 
 h1, h2, h3 {
-    color: #333;
+    color: var(--forest);
+    font-family: 'Lora', serif;
+    font-weight: 700;
+}
+
+a {
+    color: var(--hunter);
+}
+
+a:hover {
+    color: var(--fern);
 }
 
 section {
-    background: #fff;
-    border: 1px solid #d8d8e8;
+    background: var(--card-bg);
+    border: 0;
     border-radius: 6px;
     margin: 20px 0;
     padding: 24px;
@@ -147,7 +177,7 @@ section {
     column-gap: 80px;
     margin-top: 12px;
     padding-top: 28px;
-    border-top: 1px solid #d8d8e8;
+    border-top: 1px solid var(--sage-light);
 }
 
 .intro-details h2 {
@@ -169,7 +199,7 @@ section {
 }
 
 .details {
-    color: #555;
+    color: var(--hunter);
 }
 
 .education-timeline {
@@ -185,7 +215,7 @@ section {
     bottom: 24px;
     left: 18px;
     width: 2px;
-    background: #d8d8e8;
+    background: var(--sage-light);
     content: "";
 }
 
@@ -194,8 +224,8 @@ section {
     margin: 20px 0;
     padding: 28px 32px;
     text-align: left;
-    background: #fff;
-    border: 1px solid #d8d8e8;
+    background: var(--card-bg);
+    border: 0;
     border-radius: 6px;
 }
 
@@ -206,8 +236,8 @@ section {
     width: 14px;
     height: 14px;
     box-sizing: border-box;
-    background: #5d5a8d;
-    border: 3px solid #f4f4f9;
+    background: var(--fern);
+    border: 3px solid var(--page-bg);
     border-radius: 50%;
     content: "";
 }
@@ -245,7 +275,7 @@ section {
 
 .education-date {
     margin: 0;
-    color: #777;
+    color: var(--hunter);
     font-size: 0.92rem;
     white-space: nowrap;
 }
@@ -269,9 +299,9 @@ section {
 
 .coursework-tags span {
     padding: 4px 10px;
-    color: #4b496f;
+    color: var(--card-bg);
     font-size: 0.9rem;
-    background: #eeeeff;
+    background: var(--fern);
     border-radius: 999px;
 }
 
@@ -280,7 +310,7 @@ section {
 }
 
 .education-activities span {
-    color: #777;
+    color: var(--hunter);
     font-size: 0.92rem;
 }
 
@@ -293,8 +323,8 @@ section {
     margin: 20px auto;
     padding: 32px;
     text-align: left;
-    background: #fff;
-    border: 1px solid #d8d8e8;
+    background: var(--card-bg);
+    border: 0;
     border-radius: 6px;
 }
 
@@ -319,7 +349,7 @@ ul {
 
 footer {
     margin-top: 35px;
-    color: #666;
+    color: var(--hunter);
     font-size: 0.95rem;
 }
 
