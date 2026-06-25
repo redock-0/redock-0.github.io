@@ -157,8 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const handleKeyboardEntry = (event) => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
+            event.preventDefault();
+
+            if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
                 enterHomePage();
             }
         };
