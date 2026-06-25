@@ -224,6 +224,20 @@ section {
     margin: 0;
 }
 
+.school-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.school-title img {
+    width: 52px;
+    height: 52px;
+    flex: 0 0 52px;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
 .education-qualification {
     margin-top: 4px;
     font-weight: 700;
@@ -311,16 +325,24 @@ footer {
 
 @media (max-width: 600px) {
     body {
-        padding-top: 190px;
+        padding: 92px 16px 32px;
     }
 
     nav {
-        padding: 10px;
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 10px 14px;
+        white-space: nowrap;
+        box-sizing: border-box;
+        -webkit-overflow-scrolling: touch;
     }
 
     nav a {
-        margin: 4px;
-        padding: 7px 9px;
+        flex: 0 0 auto;
+        margin: 0;
+        padding: 8px 12px;
+        font-size: 0.95rem;
     }
 
     .intro {
@@ -358,6 +380,16 @@ footer {
     .education-card-header {
         flex-direction: column;
         gap: 4px;
+    }
+
+    .school-title {
+        gap: 10px;
+    }
+
+    .school-title img {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
     }
 
     .education-date {
