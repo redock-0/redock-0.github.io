@@ -10,12 +10,17 @@
 }
 
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: var(--page-bg);
     color: var(--forest);
     padding: 120px 20px 40px;
     line-height: 1.6;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 header, main {
@@ -59,33 +64,132 @@ nav a[aria-current="page"] {
     background: var(--fern);
 }
 
-.home-page .homepage-nav {
-    position: static;
-    flex: 0 0 auto;
-    width: fit-content;
-    max-width: 100%;
-    margin: 0 auto;
-    border-bottom: 0;
-}
-
-.home-page .homepage-nav a {
-    margin: 8px;
-    padding: 11px 18px;
-    font-size: 1.15rem;
-}
-
 .home-page {
-    padding-top: 32px;
+    padding: 0;
 }
 
-.home-page header h1 {
-    margin: 0 auto 28px;
-    padding: 22px 28px;
+.home-page .hero {
+    position: relative;
+    display: grid;
+    place-items: center;
+    max-width: none;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    background: url('photos/main.JPG') center / cover no-repeat;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(16, 28, 22, 0.58);
+}
+
+.hero-content,
+.scroll-prompt {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    margin: 0;
     color: var(--card-bg);
+    font-size: clamp(3rem, 9vw, 8rem);
+    letter-spacing: 0.03em;
     text-align: center;
-    background: var(--hunter);
-    border-radius: 8px;
-    box-shadow: 0 10px 24px rgba(52, 78, 65, 0.16);
+    text-shadow: 0 8px 28px rgba(0, 0, 0, 0.32);
+}
+
+.scroll-prompt {
+    position: absolute;
+    bottom: 38px;
+    left: 0;
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--card-bg);
+    font-family: 'Lora', serif;
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+}
+
+.scroll-prompt:hover {
+    color: var(--sage-light);
+}
+
+.scroll-arrow {
+    font-size: 2.2rem;
+    line-height: 1;
+}
+
+.home-page main {
+    max-width: 1500px;
+    padding: 34px 20px 40px;
+}
+
+.home-page.is-entering-home {
+    overflow: hidden;
+}
+
+.home-page.is-settling-home {
+    overflow: hidden;
+}
+
+.home-page.is-entering-home .hero {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    width: 100%;
+    --animate-duration: 750ms;
+}
+
+.home-page.has-entered-home .hero {
+    display: none;
+}
+
+.home-page.has-revealed-home main,
+.home-page.has-entered-home main {
+    padding: 120px 20px 40px;
+}
+
+.home-page .home-main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    margin: 0;
+    border-bottom: 0;
+    border-radius: 0;
+}
+
+.home-page-title {
+    margin: 0 0 28px;
+    text-align: center;
+}
+
+.reveal-on-scroll,
+.home-page-title,
+.home-about {
+    opacity: 0;
+    pointer-events: none;
+    --animate-duration: 750ms;
+}
+
+.reveal-on-scroll.is-revealed,
+.home-page-title.is-revealed,
+.home-about.is-revealed {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.page-load-reveal {
+    --animate-duration: 750ms;
 }
 
 .experience-tabs {
@@ -442,13 +546,37 @@ footer {
     }
 
     .home-page {
-        padding: 20px 16px 32px;
+        padding: 0;
     }
 
-    .home-page header h1 {
-        margin: 0 0 20px;
-        font-size: 1.85rem;
-        line-height: 1.15;
+    .home-page main {
+        padding: 24px 16px 32px;
+    }
+
+    .home-page.has-revealed-home main,
+    .home-page.has-entered-home main {
+        padding: 92px 16px 32px;
+    }
+
+    .hero-content h1 {
+        padding: 0 24px;
+        font-size: clamp(2.6rem, 13vw, 4.5rem);
+        line-height: 1.12;
+    }
+
+    .scroll-prompt {
+        bottom: 30px;
+    }
+
+    .home-page .home-main-nav {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px 14px;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
     }
 
     .home-page .intro {
@@ -469,21 +597,7 @@ footer {
 
     .home-page .intro-copy p {
         margin: 0 0 20px;
-        text-align: left;
-    }
-
-    .home-page .intro-copy p:first-of-type {
         text-align: center;
     }
 
-    .home-page .homepage-nav {
-        width: 100%;
-        padding: 8px;
-    }
-
-    .home-page .homepage-nav a {
-        margin: 4px;
-        padding: 8px 11px;
-        font-size: 1rem;
-    }
 }

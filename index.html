@@ -4,30 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Micah Dumo | Portfolio</title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    >
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="home-page">
-    <header>
-        <h1>DUMO MICAH LAURICE LIM</h1>
-        <!--
-        <p class="details">Information Systems student at Singapore Management University</p>
-        -->
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="animate__animated animate__fadeIn">Micah's<br>Portfolio</h1>
+        </div>
+        <a class="scroll-prompt animate__animated animate__fadeInUp animate__delay-1s" href="#home-content">
+            <span>Enter</span>
+            <span class="scroll-arrow" aria-hidden="true">⌄</span>
+        </a>
     </header>
-    <main>
-        <section class="intro">
-            <div class="intro-copy">
-                <h2>About Me</h2>
-                <p>
-                    Hi! I'm Micah, an Information Systems student at Singapore Management University (SMU)!
-                </p>
-                <p> 
-                    To me, technology is most meaningful when it solves real-world problems and makes everyday tasks more efficient, convenient, and accessible.
-                    With strong problem-solving abilities, logical thinking, and a passion for learning new technologies, I aspire to contribute to solutions that enhance business operations, support informed decision-making, and improve everyday experiences.
-                </p>
-                <p>
-                    So far, I have been building skills in web application development, data management, data analytics, and spreadsheet modelling, with experience in Python, JavaScript, HTML, and SQL.
-                    As I continue my studies in Information Systems, I hope to contribute to society by building solutions that are not only functional, but meaningful to the people who use them; and I believe technology is one powerful way to do that.
-                </p>
+
+    <main id="home-content">
+        <nav class="home-main-nav reveal-on-scroll" aria-label="Portfolio sections">
+            <a href="index.html">Home</a>
+            <a href="index.html#about-me" aria-current="page">About Me</a>
+            <a href="education.html">Education</a>
+            <a href="projects.html">Projects</a>
+            <a href="certifications-skills.html">Certifications / Skills</a>
+            <a href="experience.html">Experience</a>
+            <a href="activities.html">Activities</a>
+            <a href="personal.html">Personal</a>
+        </nav>
+
+        <h1 class="home-page-title" id="about-me">About Me</h1>
+
+        <div class="home-about">
+            <section class="intro">
+                <div class="intro-copy">
+                    <h2>Hi, I'm Micah Dumo!</h2>
+                    <h3>
+                        Year 2 Information Systems student<br>Singapore Management University (SMU)
+                    </h3>
+                    <p>
+                        To me, technology is most meaningful when it solves real-world problems and makes everyday tasks more efficient, convenient, and accessible.
+                        With strong problem-solving abilities, logical thinking, and a passion for learning new technologies, I aspire to contribute to solutions that enhance business operations, support informed decision-making, and improve everyday experiences.
+                    </p>
+                    <p>
+                        So far, I have been building skills in web application development, data management, data analytics, and spreadsheet modelling, with experience in Python, JavaScript, HTML, and SQL.
+                        As I continue my studies in Information Systems, I hope to contribute to society by building solutions that are not only functional, but meaningful to the people who use them; and I believe technology is one powerful way to do that.
+                    </p>
                 <!--
                 <p>
                     I am a Bachelor of Science in Information Systems student with an interest in
@@ -41,40 +64,33 @@
                     participating in Model United Nations, and working with peers in challenging environments.
                 </p>
                 -->
-            </div>
-            <img class="intro-photo" src="photos/me.jpeg" alt="Micah Dumo">
-            <nav class="homepage-nav" aria-label="Portfolio sections">
-                <a href="education.html">Education</a>
-                <a href="projects.html">Projects</a>
-                <a href="certifications-skills.html">Certifications / Skills</a>
-                <a href="experience.html">Experience</a>
-                <a href="activities.html">Activities</a>
-                <a href="personal.html">Personal</a>
-            </nav>
-            <div class="intro-details">
-                <div class="intro-contact">
-                    <h2>Contact</h2>
-                    <p>
-                        <img class="contact-icon" src="icons/email.png" alt="Email">
-                        <a href="mailto:mll.dumo.2025@computing.smu.edu.sg">mll.dumo.2025@computing.smu.edu.sg</a>
-                    </p>
+                </div>
+                <img class="intro-photo" src="photos/me.jpeg" alt="Micah Dumo">
+                <div class="intro-details">
+                    <div class="intro-contact">
+                        <h2>Contact</h2>
+                        <p>
+                            <img class="contact-icon" src="icons/email.png" alt="Email">
+                            <a href="mailto:mll.dumo.2025@computing.smu.edu.sg">mll.dumo.2025@computing.smu.edu.sg</a>
+                        </p>
                     <!--
                     <p>
                         <img class="contact-icon" src="icons/phone.jpg" alt="Phone">
                         <span>+65 8753 9609</span>
                     </p>
                     -->
-                    <p>
-                        <img class="contact-icon" src="icons/linkedin.png" alt="LinkedIn">
-                        <a href="https://www.linkedin.com/in/micahdumo" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/micahdumo</a>
-                    </p>
+                        <p>
+                            <img class="contact-icon" src="icons/linkedin.png" alt="LinkedIn">
+                            <a href="https://www.linkedin.com/in/micahdumo" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/micahdumo</a>
+                        </p>
+                    </div>
+                    <div class="intro-resources">
+                        <h2>Resources</h2>
+                        <p><a href="resources/cv-copy.pdf" target="_blank" rel="noopener noreferrer">View my CV (PDF)</a></p>
+                    </div>
                 </div>
-                <div class="intro-resources">
-                    <h2>Resources</h2>
-                    <p><a href="resources/cv-copy.pdf" target="_blank" rel="noopener noreferrer">View my CV (PDF)</a></p>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
         <!--
         <section>
