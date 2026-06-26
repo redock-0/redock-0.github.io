@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
         nav.scrollLeft = Math.max(0, targetScrollLeft);
     }
 
+    requestAnimationFrame(() => {
+        document.body.classList.add('nav-ready');
+    });
+
     const subpageHeaderTargets = document.querySelectorAll('body:not(.home-page) header > :not(nav)');
     const subpageContentTargets = document.querySelectorAll(
         'body:not(.home-page) main section, body:not(.home-page) main .education-card, body:not(.home-page) main .project-card'
