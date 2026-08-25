@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toad Fan Page</title>
+    <link rel="icon" type="image/webp" href="fanpage-pics/powerup2.webp">
+    <style>
+        /* Base */
+        @font-face {
+            font-family: "Super Mario Local";
+            src: url("fonts/Super Mario/SuperMario256.ttf") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: "ByteBounce Local";
+            src: url("fonts/bytebounce/ByteBounce.ttf") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --display-font: "Super Mario Local", Impact, "Arial Black", sans-serif;
+            --body-font: "ByteBounce Local", "Trebuchet MS", Arial, Helvetica, sans-serif;
+            --sky-blue: #57c7ff;
+            --mario-red: #e52521;
+            --mario-blue: #049cd8;
+            --deep-blue: #026fa0;
+            --mario-yellow: #fbd000;
+            --grass-green: #43b047;
+            --brick-brown: #8b4a22;
+            --brick-orange: #c9672d;
+            --dark-text: #24201c;
+            --cream: #fff7d1;
+            --panel-fill: #fff3c4;
+            --panel-edge: #2b1b12;
+            --white: #ffffff;
+            --soft-shadow: rgba(45, 40, 28, 0.18);
+            --strong-shadow: rgba(45, 40, 28, 0.32);
+            --pixel-corner: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--body-font);
+            font-size: 1.25rem;
+            color: var(--dark-text);
+            background:
+                radial-gradient(circle at 8% 12%, rgba(251, 208, 0, 0.35) 0 58px, transparent 60px),
+                linear-gradient(#9ae6ff 0%, #fff8c7 45%, #a9e86f 100%);
+            min-height: 100vh;
+        }
+
+        button {
+            font-family: var(--body-font);
+        }
+
+        body.intro-active {
+            overflow: hidden;
+        }
+
+        .site-content {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.65s ease;
+        }
+
+        body.entered .site-content {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        main {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 42px 20px 54px;
+        }
+
+        section {
+            margin-bottom: 42px;
+            scroll-margin-top: 24px;
+        }
+
+        .section-title {
+            display: inline-block;
+            margin: 0 0 20px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: var(--mario-yellow);
+            font-family: var(--display-font);
+            font-size: clamp(1.8rem, 4vw, 2.7rem);
+            letter-spacing: 0.02em;
+            -webkit-text-stroke: 1px var(--panel-edge);
+            text-shadow:
+                3px 3px 0 var(--panel-edge),
+                5px 5px 0 var(--mario-red),
+                0 8px 16px var(--soft-shadow);
+        }
+
+        #facts > .section-title,
+        #toad-gallery > .section-title {
+            text-align: center;
+            display: block;
+        }
+
+        .reveal,
+        .reveal-pop {
+            opacity: 0;
+            transition-delay: var(--delay, 0ms);
+        }
+
+        .reveal {
+            transform: translateY(30px);
+            transition:
+                opacity 0.55s ease,
+                transform 0.55s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-pop {
+            transform: translate(var(--start-x, 0), 28px) scale(0.88);
+        }
+
+        .reveal-pop.visible {
+            animation: popReveal 0.62s ease-out var(--delay, 0ms) forwards;
+        }
+
+        /* Intro */
+        .intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background:
+                radial-gradient(circle at 22% 18%, rgba(251, 208, 0, 0.22) 0 70px, transparent 72px),
+                radial-gradient(circle at 78% 78%, rgba(67, 176, 71, 0.2) 0 90px, transparent 92px),
+                linear-gradient(#0a6fb4 0%, #55c7ff 62%, #9be36f 100%);
+            opacity: 1;
+            transition: opacity 0.65s ease;
+        }
+
+        .intro-overlay.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .intro-card {
+            text-align: center;
+        }
+
+        .intro-stage {
+            position: relative;
+            width: 170px;
+            height: 260px;
+            margin: 0 auto;
+        }
+
+        .intro-mushroom {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 1;
+            width: 82px;
+            height: 82px;
+            object-fit: contain;
+            opacity: 0;
+            transform: translateX(-50%) translateY(-8px);
+        }
+
+        .intro-mushroom.rise {
+            animation: introMushroomRise 0.85s ease-out forwards;
+        }
+
+        .intro-block-button {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 2;
+            width: 122px;
+            height: 122px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            transform: translateX(-50%) translateY(-50%);
+            filter: drop-shadow(0 12px 0 rgba(61, 35, 15, 0.36));
+        }
+
+        .intro-block-button img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            animation: introBlockIdle 1.8s ease-in-out infinite;
+            transition: transform 0.16s ease;
+        }
+
+        .intro-block-button:hover img {
+            animation: introBlockHoverIdle 1.2s ease-in-out infinite;
+        }
+
+        .intro-block-button.bump {
+            animation: introBlockBump 0.2s ease-in-out;
+        }
+
+        .intro-block-button.bump img {
+            animation: none;
+        }
+
+        .intro-text {
+            margin: 18px 0 0;
+            padding: 8px 14px;
+            display: inline-block;
+            border: 3px solid var(--white);
+            border-radius: 999px;
+            background: rgba(36, 32, 28, 0.72);
+            color: var(--white);
+            font-family: var(--body-font);
+            font-size: 1.25rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.25);
+        }
+
+        /* Music */
+        .music-button {
+            position: fixed;
+            top: 14px;
+            right: 14px;
+            z-index: 10;
+            border: 3px solid var(--white);
+            border-radius: 999px;
+            padding: 8px 12px;
+            background: var(--mario-blue);
+            color: var(--white);
+            font-family: var(--body-font);
+            font-size: 1.1rem;
+            font-weight: 800;
+            box-shadow: 0 4px 0 var(--deep-blue), 0 8px 16px var(--soft-shadow);
+            cursor: pointer;
+            transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+        }
+
+        .music-button:hover {
+            background: var(--mario-red);
+            transform: translateY(-2px);
+        }
+
+        .music-button:active {
+            transform: translateY(3px);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            padding: 22px 20px 56px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background-image:
+                linear-gradient(rgba(0, 56, 116, 0.18), rgba(0, 56, 116, 0.15)),
+                url("fanpage-pics/bg.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-bottom: 12px solid var(--brick-brown);
+        }
+
+        .logo {
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(170px, 40vw);
+            display: block;
+            filter: drop-shadow(0 10px 0 rgba(0, 0, 0, 0.22));
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        body.hero-ready .logo {
+            opacity: 1;
+            animation: floatLogo 2.8s ease-in-out infinite;
+        }
+
+        h1 {
+            margin: 22px 0 8px;
+            font-family: var(--display-font);
+            font-size: clamp(4.4rem, 16vw, 10.5rem);
+            line-height: 0.9;
+            color: var(--white);
+            letter-spacing: 0.03em;
+            text-shadow:
+                5px 5px 0 var(--mario-red),
+                10px 10px 0 var(--mario-blue),
+                0 12px 22px rgba(0, 0, 0, 0.35);
+        }
+
+        .hero-title {
+            margin: 0;
+            width: min(78vw, 560px);
+            height: auto;
+            display: block;
+            transform: translateY(125vh);
+        }
+
+        body.title-entered .hero-title {
+            animation: titleShootUp 0.82s cubic-bezier(0.18, 0.92, 0.22, 1.12) forwards;
+        }
+
+        .scroll-prompt {
+            display: inline-block;
+            margin: 22px 0 0;
+            padding: 10px 16px;
+            border: 4px solid var(--white);
+            border-radius: 0;
+            background: rgba(36, 32, 28, 0.72);
+            color: var(--white);
+            font-family: var(--body-font);
+            font-size: clamp(1.15rem, 3vw, 1.6rem);
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            opacity: 0;
+            transform: scale(0.75);
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.28);
+        }
+
+        body.prompt-entered .scroll-prompt {
+            animation: promptPop 0.35s ease-out forwards;
+        }
+
+        .scroll-arrow {
+            display: block;
+            margin-top: 4px;
+            font-size: 1.8rem;
+            line-height: 1;
+            animation: arrowBounce 1.1s ease-in-out infinite;
+        }
+
+        /* About */
+        .profile {
+            display: grid;
+            grid-template-columns: 30% 40% 30%;
+            align-items: center;
+            gap: 18px;
+            max-width: 1080px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 28px 30px;
+            border: 4px solid var(--panel-edge);
+            border-radius: 0;
+            clip-path: polygon(
+                0 var(--pixel-corner),
+                var(--pixel-corner) var(--pixel-corner),
+                var(--pixel-corner) 0,
+                calc(100% - var(--pixel-corner)) 0,
+                calc(100% - var(--pixel-corner)) var(--pixel-corner),
+                100% var(--pixel-corner),
+                100% calc(100% - var(--pixel-corner)),
+                calc(100% - var(--pixel-corner)) calc(100% - var(--pixel-corner)),
+                calc(100% - var(--pixel-corner)) 100%,
+                var(--pixel-corner) 100%,
+                var(--pixel-corner) calc(100% - var(--pixel-corner)),
+                0 calc(100% - var(--pixel-corner))
+            );
+            background: linear-gradient(90deg, #fffdf2, var(--panel-fill));
+            box-shadow:
+                inset 0 0 0 4px rgba(255, 255, 255, 0.75),
+                inset 0 -6px 0 rgba(139, 74, 34, 0.12),
+                5px 5px 0 rgba(43, 27, 18, 0.26),
+                0 16px 26px var(--soft-shadow);
+        }
+
+        .profile-visual {
+            width: 100%;
+            height: clamp(240px, 30vw, 360px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-toad {
+            width: 100%;
+            height: 100%;
+            max-width: 320px;
+            object-fit: contain;
+            filter: drop-shadow(5px 8px 0 rgba(43, 27, 18, 0.18));
+        }
+
+        .profile-copy {
+            text-align: center;
+        }
+
+        .profile h2 {
+            margin: 0 0 10px;
+            color: var(--mario-red);
+            font-family: var(--display-font);
+            font-size: clamp(2.2rem, 6vw, 4rem);
+            text-align: center;
+            -webkit-text-stroke: 1px var(--panel-edge);
+            text-shadow:
+                2px 2px 0 var(--panel-edge),
+                4px 4px 0 var(--mario-yellow);
+        }
+
+        .profile p {
+            max-width: 620px;
+            margin: 0;
+            font-size: 1.38rem;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        /* Facts */
+        .facts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 22px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .fact-card,
+        .block-area {
+            border-radius: 0;
+            clip-path: polygon(
+                0 var(--pixel-corner),
+                var(--pixel-corner) var(--pixel-corner),
+                var(--pixel-corner) 0,
+                calc(100% - var(--pixel-corner)) 0,
+                calc(100% - var(--pixel-corner)) var(--pixel-corner),
+                100% var(--pixel-corner),
+                100% calc(100% - var(--pixel-corner)),
+                calc(100% - var(--pixel-corner)) calc(100% - var(--pixel-corner)),
+                calc(100% - var(--pixel-corner)) 100%,
+                var(--pixel-corner) 100%,
+                var(--pixel-corner) calc(100% - var(--pixel-corner)),
+                0 calc(100% - var(--pixel-corner))
+            );
+            background: var(--panel-fill);
+            box-shadow:
+                inset 0 0 0 4px rgba(255, 255, 255, 0.72),
+                inset 0 -5px 0 rgba(139, 74, 34, 0.12),
+                4px 4px 0 rgba(43, 27, 18, 0.24),
+                0 10px 18px var(--soft-shadow);
+        }
+
+        .fact-card {
+            padding: 24px;
+            border: 3px solid var(--panel-edge);
+            min-height: 0;
+            background: linear-gradient(#fffdf2, #fff4c9);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .fact-card:hover {
+            transform: translateY(-5px);
+            box-shadow:
+                inset 0 0 0 4px rgba(255, 255, 255, 0.72),
+                inset 0 -5px 0 rgba(139, 74, 34, 0.12),
+                5px 5px 0 rgba(43, 27, 18, 0.3),
+                0 14px 24px var(--strong-shadow);
+        }
+
+        .fact-card h3 {
+            margin: 0 0 8px;
+            color: var(--mario-blue);
+            font-family: var(--display-font);
+            font-size: clamp(1.45rem, 4vw, 2rem);
+        }
+
+        .fact-card p {
+            margin: 0;
+            font-size: 1.28rem;
+            line-height: 1.72;
+        }
+
+        /* Interactive Block */
+        .interactive {
+            text-align: center;
+        }
+
+        .block-area {
+            position: relative;
+            overflow: hidden;
+            min-height: 360px;
+            padding: 34px 24px 40px;
+            border: 4px solid var(--panel-edge);
+            background-color: var(--panel-fill);
+            background-image:
+                linear-gradient(rgba(255, 253, 242, 0.82), rgba(255, 246, 207, 0.82)),
+                repeating-linear-gradient(0deg, transparent 0 24px, rgba(75, 34, 12, 0.28) 25px 28px),
+                repeating-linear-gradient(90deg, transparent 0 58px, rgba(75, 34, 12, 0.22) 59px 62px);
+            box-shadow:
+                inset 0 0 0 4px rgba(255, 255, 255, 0.7),
+                inset 0 -6px 0 rgba(139, 74, 34, 0.14),
+                5px 5px 0 rgba(43, 27, 18, 0.26),
+                0 12px 24px var(--soft-shadow);
+        }
+
+        .block-area p {
+            margin: 0 0 14px;
+            font-size: 1.25rem;
+            line-height: 1.65;
+            font-weight: 900;
+            color: var(--brick-brown);
+        }
+
+        .coin-counter {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 9px 16px;
+            border: 3px solid var(--white);
+            border-radius: 999px;
+            background: var(--mario-yellow);
+            color: #5a3000;
+            font-family: var(--body-font);
+            font-size: 1.25rem;
+            font-weight: 900;
+            box-shadow: 0 5px 0 #d69a00;
+        }
+
+        .block-stage {
+            position: relative;
+            width: 180px;
+            height: 230px;
+            margin: 0 auto;
+        }
+
+        .flying-coin {
+            position: absolute;
+            left: 50%;
+            width: 76px;
+            height: 76px;
+            object-fit: contain;
+            transform: translateX(-50%);
+        }
+
+        .flying-coin {
+            bottom: 84px;
+            z-index: 3;
+            animation: coinSpring 0.9s ease-out forwards;
+            pointer-events: none;
+        }
+
+        .block-button {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            z-index: 2;
+            width: 112px;
+            height: 112px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            transform: translateX(-50%);
+            filter: drop-shadow(0 10px 0 rgba(86, 45, 15, 0.28));
+            transition: filter 0.16s ease;
+        }
+
+        .block-button:not(.bump) img {
+            animation: blockIdle 2.3s ease-in-out infinite;
+        }
+
+        .block-button:hover {
+            filter: drop-shadow(0 13px 0 rgba(86, 45, 15, 0.28)) brightness(1.04);
+        }
+
+        .block-button:not(.bump):hover img {
+            animation: blockHoverIdle 1.2s ease-in-out infinite;
+        }
+
+        .block-button:active {
+            transform: translateX(-50%) translateY(3px);
+        }
+
+        .block-button img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            transition: transform 0.16s ease;
+        }
+
+        .block-button.bump {
+            animation: blockBump 0.28s ease-in-out;
+        }
+
+        /* Toad Gallery */
+        .gallery-panel {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 30px 24px;
+            border: 4px solid var(--panel-edge);
+            border-radius: 0;
+            clip-path: polygon(
+                0 var(--pixel-corner),
+                var(--pixel-corner) var(--pixel-corner),
+                var(--pixel-corner) 0,
+                calc(100% - var(--pixel-corner)) 0,
+                calc(100% - var(--pixel-corner)) var(--pixel-corner),
+                100% var(--pixel-corner),
+                100% calc(100% - var(--pixel-corner)),
+                calc(100% - var(--pixel-corner)) calc(100% - var(--pixel-corner)),
+                calc(100% - var(--pixel-corner)) 100%,
+                var(--pixel-corner) 100%,
+                var(--pixel-corner) calc(100% - var(--pixel-corner)),
+                0 calc(100% - var(--pixel-corner))
+            );
+            background: linear-gradient(#fffdf2, #fff4c9);
+            box-shadow:
+                inset 0 0 0 4px rgba(255, 255, 255, 0.72),
+                inset 0 -5px 0 rgba(139, 74, 34, 0.12),
+                5px 5px 0 rgba(43, 27, 18, 0.26),
+                0 14px 24px var(--soft-shadow);
+            text-align: center;
+        }
+
+        .gallery-frame {
+            display: grid;
+            grid-template-columns: 64px minmax(0, 1fr) 64px;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .gallery-control {
+            width: 58px;
+            height: 58px;
+            border: 3px solid var(--panel-edge);
+            border-radius: 0;
+            background: var(--mario-yellow);
+            color: var(--panel-edge);
+            font-family: var(--body-font);
+            font-size: 2rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 5px 0 var(--brick-brown);
+            transition: transform 0.14s ease, box-shadow 0.14s ease;
+        }
+
+        .gallery-control:hover {
+            transform: translateY(-2px);
+        }
+
+        .gallery-control:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 var(--brick-brown);
+        }
+
+        .gallery-slide {
+            min-height: 560px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .gallery-image {
+            width: 100%;
+            max-width: 360px;
+            height: 260px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 14px;
+        }
+
+        .gallery-image.pop {
+            animation: galleryImagePop 0.34s ease-out;
+        }
+
+        .gallery-panel.visible .gallery-image {
+            animation: galleryImagePop 0.34s ease-out 0.45s;
+        }
+
+        .gallery-slide.next-out {
+            animation: slideOutLeft 0.22s ease-in forwards;
+        }
+
+        .gallery-slide.next-in {
+            animation: slideInRight 0.28s ease-out forwards;
+        }
+
+        .gallery-slide.prev-out {
+            animation: slideOutRight 0.22s ease-in forwards;
+        }
+
+        .gallery-slide.prev-in {
+            animation: slideInLeft 0.28s ease-out forwards;
+        }
+
+        .gallery-name {
+            margin: 0 0 8px;
+            font-family: var(--display-font);
+            font-size: clamp(1.8rem, 5vw, 2.7rem);
+            -webkit-text-stroke: 1px var(--panel-edge);
+            text-shadow: 2px 2px 0 var(--panel-edge), 4px 4px 0 var(--mario-yellow);
+        }
+
+        .gallery-tagline {
+            margin: 0 0 12px;
+            color: var(--white);
+            font-family: var(--display-font);
+            font-size: clamp(1.1rem, 3vw, 1.45rem);
+            -webkit-text-stroke: 0.5px var(--panel-edge);
+            text-shadow: 1px 1px 0 var(--panel-edge);
+        }
+
+        .gallery-description {
+            min-height: 42px;
+            margin: 0;
+            font-size: 1.3rem;
+            line-height: 1.6;
+        }
+
+        .gallery-appearance {
+            margin: 16px 0 0;
+            padding-top: 12px;
+            border-top: 3px solid rgba(43, 27, 18, 0.24);
+            font-size: 1.15rem;
+            line-height: 1.45;
+        }
+
+        .gallery-appearance strong {
+            display: block;
+            color: var(--brick-brown);
+            font-family: var(--display-font);
+            font-size: 1.05rem;
+        }
+
+        .gallery-dots {
+            display: flex;
+            justify-content: center;
+            gap: 9px;
+            margin-top: 16px;
+        }
+
+        .gallery-dot {
+            width: 15px;
+            height: 15px;
+            padding: 0;
+            border: 2px solid var(--panel-edge);
+            border-radius: 50%;
+            background: var(--white);
+            cursor: pointer;
+        }
+
+        .gallery-dot.active {
+            background: var(--mario-red);
+        }
+
+        /* Footer */
+        footer {
+            padding: 22px 16px;
+            text-align: center;
+            background: var(--mario-blue);
+            color: var(--white);
+            font-family: var(--body-font);
+            font-size: 1.1rem;
+            font-weight: 900;
+            border-top: 8px solid var(--mario-yellow);
+        }
+
+        /* Animations */
+        @keyframes floatLogo {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        @keyframes titleShootUp {
+            0% {
+                transform: translateY(125vh);
+            }
+            72% {
+                transform: translateY(-34px);
+            }
+            88% {
+                transform: translateY(12px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes promptPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.75);
+            }
+            72% {
+                opacity: 1;
+                transform: scale(1.08);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(7px);
+            }
+        }
+
+        @keyframes popReveal {
+            0% {
+                opacity: 0;
+                transform: translate(var(--start-x, 0), 28px) scale(0.88);
+            }
+            68% {
+                opacity: 1;
+                transform: translate(0, -9px) scale(1.04);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+        }
+
+        @keyframes introBlockIdle {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes introBlockHoverIdle {
+            0%, 100% {
+                transform: translateY(0) scale(1.07);
+            }
+            50% {
+                transform: translateY(-8px) scale(1.07);
+            }
+        }
+
+        @keyframes introBlockBump {
+            0%, 100% {
+                transform: translateX(-50%) translateY(-50%);
+            }
+            45% {
+                transform: translateX(-50%) translateY(calc(-50% - 28px));
+            }
+        }
+
+        @keyframes introMushroomRise {
+            0% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(-8px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(-142px);
+            }
+        }
+
+        @keyframes blockIdle {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        @keyframes blockHoverIdle {
+            0%, 100% {
+                transform: translateY(0) scale(1.08);
+            }
+            50% {
+                transform: translateY(-6px) scale(1.08);
+            }
+        }
+
+        @keyframes blockBump {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            45% {
+                transform: translateX(-50%) translateY(-24px);
+            }
+        }
+
+        @keyframes coinSpring {
+            0% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0) scale(0.8);
+            }
+            55% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(-126px) scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-154px) scale(0.8);
+            }
+        }
+
+        @keyframes tinyBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            45% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes slideOutLeft {
+            0% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-28px);
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(28px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideOutRight {
+            0% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(28px);
+            }
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-28px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes galleryImagePop {
+            0% {
+                transform: scale(0.95);
+            }
+            65% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 620px) {
+            .music-button {
+                top: auto;
+                bottom: 10px;
+                right: 10px;
+                padding: 7px 10px;
+                font-size: 1rem;
+            }
+
+            .hero {
+                padding: 18px 12px 46px;
+                background-position: center bottom;
+            }
+
+            .logo {
+                width: min(135px, 44vw);
+                margin-top: 34px;
+            }
+
+            h1 {
+                font-size: clamp(3.1rem, 16vw, 5rem);
+                text-shadow:
+                    3px 3px 0 var(--mario-red),
+                    6px 6px 0 var(--mario-blue),
+                    0 10px 18px rgba(0, 0, 0, 0.35);
+            }
+
+            main {
+                padding: 30px 14px 42px;
+            }
+
+            .facts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-panel {
+                padding: 22px 14px;
+            }
+
+            .gallery-frame {
+                grid-template-columns: 46px minmax(0, 1fr) 46px;
+                gap: 8px;
+            }
+
+            .gallery-control {
+                width: 42px;
+                height: 42px;
+                font-size: 1.45rem;
+            }
+
+            .gallery-slide {
+                min-height: 620px;
+            }
+
+            .gallery-image {
+                height: 210px;
+            }
+
+            .profile {
+                padding: 18px;
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .profile-visual {
+                height: 260px;
+            }
+
+            .profile-toad {
+                max-width: 260px;
+            }
+
+            .block-stage {
+                width: 150px;
+                height: 214px;
+            }
+
+            .block-button {
+                width: 98px;
+                height: 98px;
+            }
+
+            .flying-coin {
+                width: 68px;
+                height: 68px;
+            }
+
+        }
+    </style>
+</head>
+<body class="intro-active">
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-card">
+            <div class="intro-stage">
+                <img class="intro-mushroom" id="introMushroom" src="fanpage-pics/powerup2.webp" alt="Power-up mushroom">
+                <button class="intro-block-button" id="introBlockButton" type="button" aria-label="Click to enter the Toad fan page">
+                    <img id="introBlockImage" src="fanpage-pics/powerup.jpeg" alt="Yellow Mario question block">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="site-content" id="siteContent" aria-hidden="true">
+        <button class="music-button" id="musicButton" type="button">♫ Music On</button>
+        <audio id="backgroundMusic" src="audio/01. Ground Theme.mp3" loop></audio>
+
+        <header class="hero">
+            <img class="logo" src="fanpage-pics/icon.webp" alt="Toad fan page logo">
+            <img class="hero-title" src="fanpage-pics/TOAD.png" alt="TOAD">
+            <p class="scroll-prompt">
+                SCROLL DOWN TO MEET TOAD
+                <span class="scroll-arrow">↓</span>
+            </p>
+        </header>
+
+        <main>
+            <section class="profile" id="profile">
+                <div class="profile-visual">
+                    <img class="profile-toad reveal-pop" style="--start-x: -34px; --delay: 80ms;" src="fanpage-pics/normal.webp" alt="Toad smiling and waving">
+                </div>
+                <div class="profile-copy">
+                    <h2 class="reveal" style="--delay: 260ms;">MEET TOAD</h2>
+                    <p class="reveal" style="--delay: 480ms;">
+                        Toad is a well-known resident of the Mushroom Kingdom who frequently helps Mario
+                        and Princess Peach. He is cheerful, loyal, and brave, and he also appears as an
+                        adventurer in Captain Toad.
+                    </p>
+                </div>
+                <div class="profile-visual">
+                    <img class="profile-toad reveal-pop" style="--start-x: 34px; --delay: 620ms;" src="fanpage-pics/normal2.webp" alt="Toad sitting happily">
+                </div>
+            </section>
+
+            <section id="facts">
+                <h2 class="section-title reveal">TOAD FACTS</h2>
+                <div class="facts-grid">
+                    <article class="fact-card reveal" style="--delay: 0ms;">
+                        <h3>PLAYABLE SINCE 1988</h3>
+                        <p>Toad became a playable character in <em>Super Mario Bros. 2</em> in 1988. He was the fastest at running and picking up objects, but his short jump made him trickier to use in some stages.</p>
+                    </article>
+                    <article class="fact-card reveal" style="--delay: 100ms;">
+                        <h3>SMALL BUT SPEEDY</h3>
+                        <p>In <em>Super Mario Bros. 2</em>, every character had different strengths. Toad could move and lift objects especially quickly, making his gameplay surprisingly different from Mario, Luigi and Peach.</p>
+                    </article>
+                    <article class="fact-card reveal" style="--delay: 200ms;">
+                        <h3>A HERO OF HIS OWN</h3>
+                        <p>Toad took centre stage in <em>Wario's Woods</em> in 1994, where he had to stop Wario from taking over the woods. It was a rare early Mario spin-off where Toad, rather than Mario, was the main hero.</p>
+                    </article>
+                    <article class="fact-card reveal" style="--delay: 300ms;">
+                        <h3>RACING FROM THE START</h3>
+                        <p>Toad was already part of the original <em>Super Mario Kart</em> roster in 1992. Since then, he has appeared across many Mario spin-offs, including racing, sports and party games.</p>
+                    </article>
+                    <article class="fact-card reveal" style="--delay: 400ms;">
+                        <h3>TOAD OR TOADS?</h3>
+                        <p>"Toad" can be confusing because it refers both to the familiar character and to the wider species of mushroom-headed people living in the Mushroom Kingdom. That is why you often see many Toads with different coloured spots throughout the games.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="interactive" id="hit-block">
+                <h2 class="section-title reveal">HIT THE BLOCK!</h2>
+                <div class="block-area reveal" style="--delay: 160ms;">
+                    <p>Click the block to earn coins!</p>
+
+                    <div class="block-stage" id="blockStage">
+                        <button class="block-button" id="blockButton" type="button" aria-label="Hit the Mario question block">
+                            <img id="blockImage" src="fanpage-pics/brick.png" alt="Brown Mario brick block">
+                        </button>
+                    </div>
+
+                    <div class="coin-counter" id="coinCounter">Coins: 0</div>
+                </div>
+            </section>
+
+            <section id="toad-gallery">
+                <h2 class="section-title reveal">TOAD GALLERY</h2>
+                <div class="gallery-panel reveal" style="--delay: 160ms;">
+                    <div class="gallery-frame">
+                        <button class="gallery-control" id="prevToad" type="button" aria-label="Previous Toad">←</button>
+                        <div class="gallery-slide" id="gallerySlide">
+                            <img class="gallery-image" id="galleryImage" src="fanpage-pics/red.webp" alt="Red Toad">
+                            <h3 class="gallery-name" id="galleryName">Red Toad</h3>
+                            <h4 class="gallery-tagline" id="galleryTagline">THE ORIGINAL</h4>
+                            <p class="gallery-description" id="galleryDescription">The classic red-spotted Toad design dates back to <em>Super Mario Bros.</em> in 1985, where Mushroom Retainers were held captive in Bowser's castles.</p>
+                            <p class="gallery-appearance"><strong>FIRST APPEARANCE</strong> <span id="galleryAppearance">SUPER MARIO BROS. • 1985</span></p>
+                        </div>
+                        <button class="gallery-control" id="nextToad" type="button" aria-label="Next Toad">→</button>
+                    </div>
+                    <div class="gallery-dots" id="galleryDots" aria-label="Toad gallery dots"></div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            Made with 🍄 for Toad fans
+        </footer>
+    </div>
+
+    <script>
+        const introOverlay = document.querySelector("#introOverlay");
+        const introBlockButton = document.querySelector("#introBlockButton");
+        const introBlockImage = document.querySelector("#introBlockImage");
+        const introMushroom = document.querySelector("#introMushroom");
+        const siteContent = document.querySelector("#siteContent");
+        const blockButton = document.querySelector("#blockButton");
+        const blockStage = document.querySelector("#blockStage");
+        const coinCounter = document.querySelector("#coinCounter");
+        const musicButton = document.querySelector("#musicButton");
+        const backgroundMusic = document.querySelector("#backgroundMusic");
+        const gallerySlide = document.querySelector("#gallerySlide");
+        const galleryImage = document.querySelector("#galleryImage");
+        const galleryName = document.querySelector("#galleryName");
+        const galleryTagline = document.querySelector("#galleryTagline");
+        const galleryDescription = document.querySelector("#galleryDescription");
+        const galleryAppearance = document.querySelector("#galleryAppearance");
+        const galleryDots = document.querySelector("#galleryDots");
+        const prevToad = document.querySelector("#prevToad");
+        const nextToad = document.querySelector("#nextToad");
+        const coinSoundPath = "audio/mario_coin_sound.mp3";
+
+        const toads = [
+            {
+                name: "Red Toad",
+                image: "fanpage-pics/red.webp",
+                color: "#e52521",
+                tagline: "THE ORIGINAL",
+                description: "The red-and-white Toad design became the most iconic look associated with the Mushroom Kingdom's Toads. It is also the appearance most commonly associated with the individual character simply known as Toad.",
+                appearance: "SUPER MARIO BROS. • 1985"
+            },
+            {
+                name: "Blue Toad",
+                image: "fanpage-pics/blue.webp",
+                color: "#1d4fff",
+                tagline: "THE 8-BIT BLUE",
+                description: "Blue Toads have become one of the most recognisable colour variations in the series. The individual Toad was also famously shown with blue spots in the NES version of Super Mario Bros. 2 because of the game's graphical limitations.",
+                appearance: "SUPER MARIO BROS. 2 • 1988"
+            },
+            {
+                name: "Green Toad",
+                image: "fanpage-pics/green.webp",
+                color: "#22b83a",
+                tagline: "PLAYER TWO",
+                description: "Green Toad gained an early playable role as the second player's counterpart to Red Toad in Wario's Woods. Green has since become one of the recurring colours used for Toads throughout the Mushroom Kingdom.",
+                appearance: "WARIO'S WOODS • 1994"
+            },
+            {
+                name: "Yellow Toad",
+                image: "fanpage-pics/yellow.webp",
+                color: "#f0b800",
+                tagline: "BRIGHT & CHEERFUL",
+                description: "Yellow Toads are now a familiar sight throughout the Mario series and have even taken playable roles in several adventures. Their bright colour makes them one of the easiest Toad variations to recognise.",
+                appearance: "THE SUPER MARIO BROS. SUPER SHOW! • 1989"
+            },
+            {
+                name: "Purple Toad",
+                image: "fanpage-pics/purple.webp",
+                color: "#9c27d9",
+                tagline: "A COLOURFUL ADDITION",
+                description: "Purple Toads helped expand the colourful variety of Mushroom Kingdom residents beyond the more familiar red and blue designs. They have since appeared alongside other Toad colours across Mario games and media.",
+                appearance: "THE ADVENTURES OF SUPER MARIO BROS. 3 • 1990"
+            },
+            {
+                name: "Toadette",
+                image: "fanpage-pics/pink.webp",
+                color: "#ff5ab7",
+                tagline: "TOAD'S RACING PARTNER",
+                description: "Toadette is one of the most recognisable individual members of the Toad species. Originally introduced as Toad's racing partner, she later became a recurring playable character with adventures and abilities of her own.",
+                appearance: "MARIO KART: DOUBLE DASH!! • 2003"
+            },
+            {
+                name: "Toadsworth",
+                image: "fanpage-pics/old.webp",
+                color: "#8b4a22",
+                tagline: "THE ROYAL STEWARD",
+                description: "With his moustache, spectacles, cane and brown-spotted cap, Toadsworth stands apart from most other Toads. He serves as Princess Peach's elderly steward and is often portrayed as protective and deeply concerned for her well-being.",
+                appearance: "SUPER MARIO SUNSHINE • 2002"
+            },
+            {
+                name: "Captain Toad",
+                image: "fanpage-pics/captain.webp",
+                color: "#8b4a22",
+                tagline: "READY FOR ADVENTURE",
+                description: "Captain Toad is an adventurous explorer and leader of the Toad Brigade. Carrying his oversized backpack and headlamp, he searches for treasure and eventually became the star of his own puzzle-platforming adventure.",
+                appearance: "SUPER MARIO GALAXY • 2007"
+            }
+        ];
+
+        let coins = 0;
+        let musicPlaying = false;
+        let introStarted = false;
+        let currentToad = 0;
+        let galleryAnimating = false;
+
+        function bumpBlock() {
+            blockButton.classList.remove("bump");
+            void blockButton.offsetWidth;
+            blockButton.classList.add("bump");
+        }
+
+        function createCoin() {
+            const coin = document.createElement("img");
+            coin.src = "fanpage-pics/coin.webp";
+            coin.alt = "Coin";
+            coin.classList.add("flying-coin");
+            blockStage.appendChild(coin);
+
+            coin.addEventListener("animationend", function () {
+                coin.remove();
+            });
+        }
+
+        function playCoinSound() {
+            const coinSound = new Audio(coinSoundPath);
+            coinSound.volume = 0.65;
+            coinSound.play().catch(function () {
+                // If a browser blocks this tiny effect, the coin animation still works.
+            });
+        }
+
+        function hitBlock() {
+            bumpBlock();
+            coins = coins + 1;
+            coinCounter.textContent = "Coins: " + coins;
+            createCoin();
+            playCoinSound();
+        }
+
+        function updateGalleryContent(index) {
+            galleryImage.src = toads[index].image;
+            galleryImage.alt = toads[index].name;
+            galleryName.textContent = toads[index].name;
+            galleryName.style.color = toads[index].color;
+            galleryTagline.textContent = toads[index].tagline;
+            galleryDescription.textContent = toads[index].description;
+            galleryAppearance.textContent = toads[index].appearance;
+
+            document.querySelectorAll(".gallery-dot").forEach(function (dot, dotIndex) {
+                dot.classList.toggle("active", dotIndex === index);
+            });
+        }
+
+        function showToad(index, direction) {
+            if (galleryAnimating || index === currentToad) {
+                return;
+            }
+
+            galleryAnimating = true;
+            const nextIndex = (index + toads.length) % toads.length;
+            const outClass = direction === "previous" ? "prev-out" : "next-out";
+            const inClass = direction === "previous" ? "prev-in" : "next-in";
+
+            gallerySlide.classList.add(outClass);
+
+            setTimeout(function () {
+                currentToad = nextIndex;
+                updateGalleryContent(currentToad);
+                gallerySlide.classList.remove(outClass);
+                gallerySlide.classList.add(inClass);
+                galleryImage.classList.remove("pop");
+                void galleryImage.offsetWidth;
+                galleryImage.classList.add("pop");
+            }, 220);
+
+            setTimeout(function () {
+                gallerySlide.classList.remove(inClass);
+                galleryAnimating = false;
+            }, 520);
+        }
+
+        // Create clickable dots for the six gallery slides.
+        toads.forEach(function (toad, index) {
+            const dot = document.createElement("button");
+            dot.type = "button";
+            dot.classList.add("gallery-dot");
+            dot.setAttribute("aria-label", "Show " + toad.name);
+            dot.addEventListener("click", function () {
+                const direction = index < currentToad ? "previous" : "next";
+                showToad(index, direction);
+            });
+            galleryDots.appendChild(dot);
+        });
+
+        updateGalleryContent(currentToad);
+
+        function playMusic() {
+            backgroundMusic.volume = 0.45;
+            backgroundMusic.play().then(function () {
+                musicPlaying = true;
+                musicButton.textContent = "♫ Music Off";
+            }).catch(function () {
+                musicPlaying = false;
+                musicButton.textContent = "♫ Music On";
+            });
+        }
+
+        function pauseMusic() {
+            backgroundMusic.pause();
+            musicPlaying = false;
+            musicButton.textContent = "♫ Music On";
+        }
+
+        function startIntro() {
+            if (introStarted) {
+                return;
+            }
+
+            introStarted = true;
+            introBlockButton.classList.add("bump");
+
+            // After the quick bump, swap the question block to a brick and raise the mushroom.
+            setTimeout(function () {
+                introBlockImage.src = "fanpage-pics/brick.png";
+                introBlockImage.alt = "Brown Mario brick block";
+                introMushroom.classList.add("rise");
+            }, 200);
+
+            // Fade from the intro screen into the Mario level background.
+            setTimeout(function () {
+                document.body.classList.add("entered");
+                siteContent.setAttribute("aria-hidden", "false");
+                introOverlay.classList.add("fade-out");
+            }, 1400);
+
+            // Once the level is visible, remove the overlay, start music, and launch the title.
+            setTimeout(function () {
+                introOverlay.style.display = "none";
+                introOverlay.setAttribute("aria-hidden", "true");
+                document.body.classList.remove("intro-active");
+                playMusic();
+                document.body.classList.add("title-entered");
+            }, 1900);
+
+            // Show the scroll instruction after the TOAD title lands.
+            setTimeout(function () {
+                document.body.classList.add("prompt-entered");
+                document.body.classList.add("hero-ready");
+            }, 2750);
+        }
+
+        // Reveal page sections once as the user scrolls through the fan page.
+        const revealItems = document.querySelectorAll(".reveal, .reveal-pop");
+
+        if ("IntersectionObserver" in window) {
+            const revealObserver = new IntersectionObserver(function (entries, observer) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.18
+            });
+
+            revealItems.forEach(function (item) {
+                revealObserver.observe(item);
+
+                // Pop animations use keyframes; remove the reveal class afterwards so hover still works.
+                if (item.classList.contains("reveal-pop")) {
+                    item.addEventListener("animationend", function cleanupPop(event) {
+                        if (event.target !== item) {
+                            return;
+                        }
+                        item.style.opacity = "1";
+                        item.style.transform = "none";
+                        item.classList.remove("reveal-pop");
+                        item.classList.remove("visible");
+                        item.removeEventListener("animationend", cleanupPop);
+                    });
+                }
+            });
+        } else {
+            revealItems.forEach(function (item) {
+                item.classList.add("visible");
+            });
+        }
+
+        introBlockButton.addEventListener("click", startIntro);
+        blockButton.addEventListener("click", hitBlock);
+        prevToad.addEventListener("click", function () {
+            showToad(currentToad - 1, "previous");
+        });
+        nextToad.addEventListener("click", function () {
+            showToad(currentToad + 1, "next");
+        });
+
+        musicButton.addEventListener("click", function () {
+            if (musicPlaying) {
+                pauseMusic();
+            } else {
+                playMusic();
+            }
+        });
+    </script>
+</body>
+</html>
