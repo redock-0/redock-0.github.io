@@ -1,0 +1,135 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.about-section {
+    background-color: #fff;
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-section img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover; /* ensures the image covers the area without distortion */
+    margin: auto 0; /* centers the image vertically */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-section img:hover {
+    transform: scale(1.02);
+}
+
+.biography {
+    width: 550px;
+}
+
+.biography-text {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.contact-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.linkedin {
+    background-color: #0077b5;
+}
+
+.github {
+    background-color: purple;
+}
+
+.email {
+    background-color: green;
+}
+
+.button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+    transform: translateY(-2px);
+}
+
+.content-row {
+    display: flex;
+    gap: 20px;
+}
+
+.content-row h2, .content-row p {
+    text-align: center;
+}
+
+.travel-section,
+.interests-section {
+    flex: 1; /* each section takes equal space */
+}
+
+
+.travel-content {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+
+.interests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.interest {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 10px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.interest-images {
+    display: flex;
+    gap: 10px;
+}
+
+.interest-images img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin: auto;
+}
+
+.interest-images img:hover {
+    transform: scale(1.05);
+}
